@@ -1,8 +1,335 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+
+  /* Default AOSP Lavender Palette (matching screenshot) */
+  --primary: #8b5cf6;
+  --primary-hover: #7c3aed;
+  --primary-foreground: #ffffff;
+  --primary-container: #ede9fe;
+  --primary-container-foreground: #5b21b6;
+  --primary-ring: rgba(139, 92, 246, 0.35);
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #f4f4f5;
+
+  /* Dark Lavender */
+  --primary: #c4b5fd;
+  --primary-hover: #ddd6fe;
+  --primary-foreground: #2e1065;
+  --primary-container: #331575;
+  --primary-container-foreground: #ede9fe;
+  --primary-ring: rgba(196, 181, 253, 0.4);
+}
+
+/* 1. Lavender / Violet */
+[data-theme-color="lavender"] {
+  --primary: #8b5cf6;
+  --primary-hover: #7c3aed;
+  --primary-foreground: #ffffff;
+  --primary-container: #ede9fe;
+  --primary-container-foreground: #5b21b6;
+  --primary-ring: rgba(139, 92, 246, 0.35);
+}
+.dark[data-theme-color="lavender"],
+.dark [data-theme-color="lavender"] {
+  --primary: #c4b5fd;
+  --primary-hover: #ddd6fe;
+  --primary-foreground: #2e1065;
+  --primary-container: #331575;
+  --primary-container-foreground: #ede9fe;
+  --primary-ring: rgba(196, 181, 253, 0.4);
+}
+
+/* 2. Green / Mint (AOSP Green circle in screenshot) */
+[data-theme-color="green"] {
+  --primary: #4caf50;
+  --primary-hover: #388e3c;
+  --primary-foreground: #ffffff;
+  --primary-container: #e8f5e9;
+  --primary-container-foreground: #1b5e20;
+  --primary-ring: rgba(76, 175, 80, 0.35);
+}
+.dark[data-theme-color="green"],
+.dark [data-theme-color="green"] {
+  --primary: #81c784;
+  --primary-hover: #a5d6a7;
+  --primary-foreground: #0a3311;
+  --primary-container: #1b4d24;
+  --primary-container-foreground: #c8e6c9;
+  --primary-ring: rgba(129, 199, 132, 0.4);
+}
+
+/* 3. Teal / Seafoam (AOSP Teal circle in screenshot) */
+[data-theme-color="teal"] {
+  --primary: #14b8a6;
+  --primary-hover: #0d9488;
+  --primary-foreground: #ffffff;
+  --primary-container: #ccfbf1;
+  --primary-container-foreground: #115e59;
+  --primary-ring: rgba(20, 184, 166, 0.35);
+}
+.dark[data-theme-color="teal"],
+.dark [data-theme-color="teal"] {
+  --primary: #5eead4;
+  --primary-hover: #99f6e4;
+  --primary-foreground: #042f2e;
+  --primary-container: #134e4a;
+  --primary-container-foreground: #ccfbf1;
+  --primary-ring: rgba(94, 234, 212, 0.4);
+}
+
+/* 4. Cyan / Glacier (AOSP Cyan circle in screenshot) */
+[data-theme-color="cyan"] {
+  --primary: #06b6d4;
+  --primary-hover: #0891b2;
+  --primary-foreground: #ffffff;
+  --primary-container: #cffafe;
+  --primary-container-foreground: #155e75;
+  --primary-ring: rgba(6, 182, 212, 0.35);
+}
+.dark[data-theme-color="cyan"],
+.dark [data-theme-color="cyan"] {
+  --primary: #67e8f9;
+  --primary-hover: #a5f3fc;
+  --primary-foreground: #083344;
+  --primary-container: #164e63;
+  --primary-container-foreground: #cffafe;
+  --primary-ring: rgba(103, 232, 249, 0.4);
+}
+
+/* 5. Blue / Sky (AOSP Blue circle in screenshot) */
+[data-theme-color="blue"] {
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-foreground: #ffffff;
+  --primary-container: #dbeafe;
+  --primary-container-foreground: #1e40af;
+  --primary-ring: rgba(59, 130, 246, 0.35);
+}
+.dark[data-theme-color="blue"],
+.dark [data-theme-color="blue"] {
+  --primary: #93c5fd;
+  --primary-hover: #bfdbfe;
+  --primary-foreground: #172554;
+  --primary-container: #1e3a8a;
+  --primary-container-foreground: #dbeafe;
+  --primary-ring: rgba(147, 197, 253, 0.4);
+}
+
+/* 6. Coral / Sunset */
+[data-theme-color="coral"] {
+  --primary: #f97316;
+  --primary-hover: #ea580c;
+  --primary-foreground: #ffffff;
+  --primary-container: #ffedd5;
+  --primary-container-foreground: #9a3412;
+  --primary-ring: rgba(249, 115, 22, 0.35);
+}
+.dark[data-theme-color="coral"],
+.dark [data-theme-color="coral"] {
+  --primary: #fdba74;
+  --primary-hover: #fed7aa;
+  --primary-foreground: #431407;
+  --primary-container: #7c2d12;
+  --primary-container-foreground: #ffedd5;
+  --primary-ring: rgba(253, 186, 116, 0.4);
+}
+
+/* 7. Amber / Citron */
+[data-theme-color="amber"] {
+  --primary: #f59e0b;
+  --primary-hover: #d97706;
+  --primary-foreground: #ffffff;
+  --primary-container: #fef3c7;
+  --primary-container-foreground: #92400e;
+  --primary-ring: rgba(245, 158, 11, 0.35);
+}
+.dark[data-theme-color="amber"],
+.dark [data-theme-color="amber"] {
+  --primary: #fcd34d;
+  --primary-hover: #fde68a;
+  --primary-foreground: #451a03;
+  --primary-container: #78350f;
+  --primary-container-foreground: #fef3c7;
+  --primary-ring: rgba(252, 211, 77, 0.4);
+}
+
+/* 8. Rose / Flamingo */
+[data-theme-color="rose"] {
+  --primary: #ec4899;
+  --primary-hover: #db2777;
+  --primary-foreground: #ffffff;
+  --primary-container: #fce7f3;
+  --primary-container-foreground: #9d174d;
+  --primary-ring: rgba(236, 72, 153, 0.35);
+}
+.dark[data-theme-color="rose"],
+.dark [data-theme-color="rose"] {
+  --primary: #f472b6;
+  --primary-hover: #fbcfe8;
+  --primary-foreground: #500724;
+  --primary-container: #831843;
+  --primary-container-foreground: #fce7f3;
+  --primary-ring: rgba(244, 114, 182, 0.4);
+}
+
+/* 9. Indigo / Deep Sea */
+[data-theme-color="indigo"] {
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --primary-foreground: #ffffff;
+  --primary-container: #e0e7ff;
+  --primary-container-foreground: #3730a3;
+  --primary-ring: rgba(99, 102, 241, 0.35);
+}
+.dark[data-theme-color="indigo"],
+.dark [data-theme-color="indigo"] {
+  --primary: #a5b4fc;
+  --primary-hover: #c7d2fe;
+  --primary-foreground: #1e1b4b;
+  --primary-container: #312e81;
+  --primary-container-foreground: #e0e7ff;
+  --primary-ring: rgba(165, 180, 252, 0.4);
+}
+
+/* 10. Plum / Orchid */
+[data-theme-color="plum"] {
+  --primary: #a855f7;
+  --primary-hover: #9333ea;
+  --primary-foreground: #ffffff;
+  --primary-container: #f3e8ff;
+  --primary-container-foreground: #6b21a8;
+  --primary-ring: rgba(168, 85, 247, 0.35);
+}
+.dark[data-theme-color="plum"],
+.dark [data-theme-color="plum"] {
+  --primary: #d8b4fe;
+  --primary-hover: #e9d5ff;
+  --primary-foreground: #3b0764;
+  --primary-container: #581c87;
+  --primary-container-foreground: #f3e8ff;
+  --primary-ring: rgba(216, 180, 254, 0.4);
+}
+
+/* 11. Emerald / Forest */
+[data-theme-color="emerald"] {
+  --primary: #10b981;
+  --primary-hover: #059669;
+  --primary-foreground: #ffffff;
+  --primary-container: #d1fae5;
+  --primary-container-foreground: #065f46;
+  --primary-ring: rgba(16, 185, 129, 0.35);
+}
+.dark[data-theme-color="emerald"],
+.dark [data-theme-color="emerald"] {
+  --primary: #34d399;
+  --primary-hover: #6ee7b7;
+  --primary-foreground: #022c22;
+  --primary-container: #064e3b;
+  --primary-container-foreground: #d1fae5;
+  --primary-ring: rgba(52, 211, 153, 0.4);
+}
+
+/* 12. Lime / Pistachio */
+[data-theme-color="lime"] {
+  --primary: #84cc16;
+  --primary-hover: #65a30d;
+  --primary-foreground: #ffffff;
+  --primary-container: #ecfccb;
+  --primary-container-foreground: #3f6212;
+  --primary-ring: rgba(132, 204, 22, 0.35);
+}
+.dark[data-theme-color="lime"],
+.dark [data-theme-color="lime"] {
+  --primary: #a3e635;
+  --primary-hover: #bef264;
+  --primary-foreground: #1a2e05;
+  --primary-container: #365314;
+  --primary-container-foreground: #ecfccb;
+  --primary-ring: rgba(163, 230, 53, 0.4);
+}
+
+/* 13. Peach / Terracotta */
+[data-theme-color="peach"] {
+  --primary: #fb923c;
+  --primary-hover: #f97316;
+  --primary-foreground: #ffffff;
+  --primary-container: #ffedd5;
+  --primary-container-foreground: #9a3412;
+  --primary-ring: rgba(251, 146, 60, 0.35);
+}
+.dark[data-theme-color="peach"],
+.dark [data-theme-color="peach"] {
+  --primary: #fed7aa;
+  --primary-hover: #ffedd5;
+  --primary-foreground: #431407;
+  --primary-container: #7c2d12;
+  --primary-container-foreground: #ffedd5;
+  --primary-ring: rgba(254, 215, 170, 0.4);
+}
+
+/* 14. Gold / Sunburst */
+[data-theme-color="gold"] {
+  --primary: #eab308;
+  --primary-hover: #ca8a04;
+  --primary-foreground: #ffffff;
+  --primary-container: #fef9c3;
+  --primary-container-foreground: #854d0e;
+  --primary-ring: rgba(234, 179, 8, 0.35);
+}
+.dark[data-theme-color="gold"],
+.dark [data-theme-color="gold"] {
+  --primary: #fde047;
+  --primary-hover: #fef08a;
+  --primary-foreground: #422006;
+  --primary-container: #713f12;
+  --primary-container-foreground: #fef9c3;
+  --primary-ring: rgba(253, 224, 71, 0.4);
+}
+
+/* 15. Crimson / Poppy */
+[data-theme-color="crimson"] {
+  --primary: #ef4444;
+  --primary-hover: #dc2626;
+  --primary-foreground: #ffffff;
+  --primary-container: #fee2e2;
+  --primary-container-foreground: #991b1b;
+  --primary-ring: rgba(239, 68, 68, 0.35);
+}
+.dark[data-theme-color="crimson"],
+.dark [data-theme-color="crimson"] {
+  --primary: #f87171;
+  --primary-hover: #fca5a5;
+  --primary-foreground: #450a0a;
+  --primary-container: #7f1d1d;
+  --primary-container-foreground: #fee2e2;
+  --primary-ring: rgba(248, 113, 113, 0.4);
+}
+
+/* 16. Charcoal / Obsidian */
+[data-theme-color="charcoal"] {
+  --primary: #4b5563;
+  --primary-hover: #374151;
+  --primary-foreground: #ffffff;
+  --primary-container: #f3f4f6;
+  --primary-container-foreground: #1f2937;
+  --primary-ring: rgba(75, 85, 99, 0.35);
+}
+.dark[data-theme-color="charcoal"],
+.dark [data-theme-color="charcoal"] {
+  --primary: #9ca3af;
+  --primary-hover: #d1d5db;
+  --primary-foreground: #111827;
+  --primary-container: #374151;
+  --primary-container-foreground: #f3f4f6;
+  --primary-ring: rgba(156, 163, 175, 0.4);
 }
 
 @theme inline {
@@ -10,17 +337,29 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-container: var(--primary-container);
+  --color-primary-container-foreground: var(--primary-container-foreground);
+  --color-primary-ring: var(--primary-ring);
+
+  /* Dynamic mapping so that components already using indigo adapt automatically */
+  --color-indigo-50: var(--primary-container);
+  --color-indigo-100: var(--primary-container);
+  --color-indigo-400: var(--primary);
+  --color-indigo-500: var(--primary);
+  --color-indigo-600: var(--primary);
+  --color-indigo-700: var(--primary-hover);
+  --color-indigo-800: var(--primary-hover);
+  --color-indigo-900: var(--primary-container);
+  --color-indigo-950: var(--primary-container);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }

@@ -14,10 +14,12 @@ import {
   Settings,
   LogOut,
   ChevronDown,
+  Palette,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useGlobalAccount } from "@/components/navigation/global-account-context";
 import { QuickAddDialog } from "@/components/forms/quick-add-dialog";
+import { PixelThemeSettings } from "@/components/theme/pixel-theme-settings";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import {
@@ -35,6 +37,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const { selectedAccountId, setSelectedAccountId, accounts } = useGlobalAccount();
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+  const [showThemeModal, setShowThemeModal] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
 
   // Check if current route is an auth route
@@ -79,8 +82,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-30 border-b border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md px-4 py-2.5">
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <Link href="/dashboard" className="flex items-center gap-2 font-bold text-lg text-indigo-600 dark:text-indigo-400">
-              <div className="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-extrabold shadow-sm">
+            <Link href="/dashboard" className="flex items-center gap-2 font-bold text-lg text-primary">
+              <div className="h-8 w-8 rounded-xl bg-primary flex items-center justify-center text-primary-foreground font-extrabold shadow-sm">
                 C
               </div>
               <span className="hidden sm:inline">Chequely</span>
@@ -152,6 +155,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 ))}
               </select>
             </div>
+
+            <button
+              type="button"
+              onClick={() => setShowThemeModal(true)}
+              className="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer transition-colors"
+              title="AOSP Theme & Mode"
+            >
+              <Palette className="h-4 w-4 text-primary" />
+            </button>
 
             <Link
               href="/settings"
@@ -246,6 +258,17 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <FileSpreadsheet className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
               Reports & Ledger
             </Link>
+            <button
+              type="button"
+              onClick={() => {
+                setShowMoreMenu(false);
+                setShowThemeModal(true);
+              }}
+              className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 font-medium cursor-pointer text-left"
+            >
+              <Palette className="h-5 w-5 text-primary" />
+              Theme & Style (AOSP Colors)
+            </button>
             <Link
               href="/settings"
               onClick={() => setShowMoreMenu(false)}
@@ -269,6 +292,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       )}
+      {/* Quick Theme Modal */}
+      <Dialog open={showThemeModal} onOpenChange={setShowThemeModal}>
+        <DialogContent className="max-w-lg p-0 border-0 bg-transparent shadow-2xl">
+          <PixelThemeSettings />
+        </DialogContent>
+      </Dialog>
+
       {/* Sign Out Confirmation Dialog */}
       <Dialog open={showLogoutDialog} onOpenChange={setShowLogoutDialog}>
         <DialogContent className="max-w-sm p-6">

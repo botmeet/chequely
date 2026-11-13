@@ -81,7 +81,7 @@ export function DialogContent({
       />
       <div
         className={cn(
-          "relative z-50 w-full max-w-lg rounded-t-2xl sm:rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-xl max-h-[90vh] overflow-y-auto animate-in slide-in-from-bottom sm:zoom-in-95",
+          "relative z-50 w-full max-w-lg rounded-t-3xl sm:rounded-3xl border border-zinc-200/80 dark:border-zinc-800 bg-white dark:bg-[#18181b] p-6 shadow-2xl max-h-[90vh] overflow-y-auto animate-in slide-in-from-bottom sm:zoom-in-95",
           className
         )}
         {...props}

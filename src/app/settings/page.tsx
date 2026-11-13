@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { useGlobalAccount } from "@/components/navigation/global-account-context";
+import { PixelThemeSettings } from "@/components/theme/pixel-theme-settings";
 
 export default function SettingsPage() {
   const { accounts, refreshAccounts } = useGlobalAccount();
@@ -140,11 +141,14 @@ export default function SettingsPage() {
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Settings & Profile</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Settings & Preferences</h1>
         <p className="text-sm text-zinc-500">
-          Manage your business information and application preferences
+          Customize your AOSP theme colors, display mode, business profile, and security
         </p>
       </div>
+
+      {/* AOSP / Pixel UI Theme & Color Settings */}
+      <PixelThemeSettings />
 
       {/* Business Profile (AU-6, BA-4) */}
       <Card>

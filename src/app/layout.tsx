@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme/theme-context";
 import { GlobalAccountProvider } from "@/components/navigation/global-account-context";
 import { AppShell } from "@/components/navigation/app-shell";
 
@@ -28,14 +29,33 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const mode = localStorage.getItem('chequely-theme-mode') || 'system';
+                const color = localStorage.getItem('chequely-theme-color') || 'lavender';
+                const isDark = mode === 'dark' || (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                if (isDark) document.documentElement.classList.add('dark');
+                else document.documentElement.classList.remove('dark');
+                document.documentElement.setAttribute('data-theme-color', color);
+              } catch (_) {}
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col font-sans">
-        <GlobalAccountProvider>
-          <Suspense fallback={<div className="min-h-screen bg-zinc-50 dark:bg-zinc-950" />}>
-            <AppShell>{children}</AppShell>
-          </Suspense>
-        </GlobalAccountProvider>
+        <ThemeProvider>
+          <GlobalAccountProvider>
+            <Suspense fallback={<div className="min-h-screen bg-zinc-50 dark:bg-zinc-950" />}>
+              <AppShell>{children}</AppShell>
+            </Suspense>
+          </GlobalAccountProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { User, Building, Landmark, Lock, Save, ShieldCheck } from "lucide-react";
 import { Profile, BankAccount } from "@/types/database";
 import { createClient } from "@/lib/supabase/client";
@@ -279,6 +280,46 @@ export default function SettingsPage() {
             </Button>
           </CardFooter>
         </form>
+      </Card>
+
+      {/* About & Developer Info */}
+      <Card className="border-zinc-200 dark:border-zinc-800">
+        <CardContent className="p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5">
+            <div className="relative h-12 w-12 rounded-2xl overflow-hidden bg-zinc-950 p-1 ring-1 ring-zinc-200 dark:ring-zinc-800 shadow-sm shrink-0">
+              <Image
+                src="/logo.png"
+                alt="Chequely Logo"
+                width={48}
+                height={48}
+                className="object-contain h-full w-full"
+              />
+            </div>
+            <div>
+              <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                Chequely
+                <span className="text-[11px] font-normal px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
+                  v1.0.0
+                </span>
+              </h3>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                Personal Cheque & Bill Tracker with AOSP Dynamic Theme
+              </p>
+            </div>
+          </div>
+
+          <a
+            href="https://www.linkedin.com/in/meet-hirpara/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-700 shadow-xs transition-all hover:scale-105 active:scale-95"
+          >
+            <svg className="h-4 w-4 fill-current text-[#0a66c2]" viewBox="0 0 24 24">
+              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9h2.8v8.37h-2.8V10.9M7.86 6.54a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26Z" />
+            </svg>
+            <span>Made by Meet Hirpara</span>
+          </a>
+        </CardContent>
       </Card>
     </div>
   );

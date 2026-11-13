@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -41,6 +42,16 @@ export default function ForgotPasswordPage() {
     <div className="flex min-h-[90vh] items-center justify-center p-4">
       <Card className="w-full max-w-md shadow-lg border-zinc-200 dark:border-zinc-800">
         <CardHeader className="text-center space-y-1">
+          <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-zinc-950 p-1.5 shadow-md ring-1 ring-zinc-200/60 dark:ring-zinc-800">
+            <Image
+              src="/logo.png"
+              alt="Chequely Logo"
+              width={64}
+              height={64}
+              className="h-full w-full object-contain rounded-xl"
+              priority
+            />
+          </div>
           <CardTitle className="text-2xl font-bold">Reset Password</CardTitle>
           <CardDescription>
             Enter your email to receive password reset link

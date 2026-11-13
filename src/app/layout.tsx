@@ -19,6 +19,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Chequely — Personal Cheque and Bill Tracker",
   description: "Personal web app for recording cheques and bills, tracking lifecycles, and managing receivables/payables",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
@@ -47,7 +48,29 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     pathname.startsWith("/forgot-password");
 
   if (isAuthPage) {
-    return <main className="min-h-screen bg-zinc-50 dark:bg-zinc-950">{children}</main>;
+    return (
+      <main className="min-h-screen flex flex-col justify-between bg-zinc-50 dark:bg-zinc-950">
+        <div className="flex-1 flex items-center justify-center">
+          {children}
+        </div>
+        <footer className="py-6 px-4 text-center text-xs text-zinc-500 border-t border-zinc-200/60 dark:border-zinc-800/60">
+          <p className="flex items-center justify-center gap-2 flex-wrap">
+            <span>Chequely &bull; Made with passion by</span>
+            <a
+              href="https://www.linkedin.com/in/meet-hirpara/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-semibold text-xs bg-zinc-200/70 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100 hover:text-primary dark:hover:text-primary transition-all shadow-xs border border-zinc-300/60 dark:border-zinc-700/80 hover:scale-105 active:scale-95"
+            >
+              <svg className="h-3.5 w-3.5 fill-current text-[#0a66c2]" viewBox="0 0 24 24">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9h2.8v8.37h-2.8V10.9M7.86 6.54a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26Z" />
+              </svg>
+              <span>Meet Hirpara</span>
+            </a>
+          </p>
+        </footer>
+      </main>
+    );
   }
 
   const handleSignOutClick = () => {
@@ -82,11 +105,20 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-30 border-b border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md px-4 py-2.5">
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <Link href="/dashboard" className="flex items-center gap-2 font-bold text-lg text-primary">
-              <div className="h-8 w-8 rounded-xl bg-primary flex items-center justify-center text-primary-foreground font-extrabold shadow-sm">
-                C
+            <Link href="/dashboard" className="flex items-center gap-2.5 font-bold text-lg text-primary group">
+              <div className="relative h-9 w-9 rounded-xl overflow-hidden shadow-sm ring-1 ring-zinc-200/60 dark:ring-zinc-800 bg-zinc-950 flex items-center justify-center transition-transform group-hover:scale-105">
+                <Image
+                  src="/logo.png"
+                  alt="Chequely Logo"
+                  width={36}
+                  height={36}
+                  className="object-cover h-full w-full"
+                  priority
+                />
               </div>
-              <span className="hidden sm:inline">Chequely</span>
+              <span className="hidden sm:inline font-bold tracking-tight text-zinc-900 dark:text-zinc-100 group-hover:text-primary transition-colors">
+                Chequely
+              </span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -188,6 +220,40 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <main className="flex-1 max-w-6xl w-full mx-auto p-4 pb-24 md:pb-8">
         {children}
       </main>
+
+      {/* Footer */}
+      <footer className="mt-auto py-6 px-4 text-center text-xs text-zinc-500 border-t border-zinc-200/60 dark:border-zinc-800/60 bg-white/50 dark:bg-zinc-900/40 backdrop-blur-xs mb-16 md:mb-0">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400">
+            <div className="relative h-5 w-5 rounded-md overflow-hidden bg-zinc-950 flex items-center justify-center">
+              <Image
+                src="/logo.png"
+                alt="Chequely logo"
+                width={20}
+                height={20}
+                className="object-contain"
+              />
+            </div>
+            <span className="font-semibold text-zinc-800 dark:text-zinc-200">Chequely</span>
+            <span>&copy; {new Date().getFullYear()}</span>
+          </div>
+
+          <div className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400 flex-wrap justify-center">
+            <span>Made with passion by</span>
+            <a
+              href="https://www.linkedin.com/in/meet-hirpara/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-semibold text-xs bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100 hover:text-primary dark:hover:text-primary shadow-xs transition-all border border-zinc-200 dark:border-zinc-700/80 hover:scale-105 active:scale-95"
+            >
+              <svg className="h-3.5 w-3.5 fill-current text-[#0a66c2]" viewBox="0 0 24 24">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9h2.8v8.37h-2.8V10.9M7.86 6.54a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26Z" />
+              </svg>
+              <span>Meet Hirpara</span>
+            </a>
+          </div>
+        </div>
+      </footer>
 
       {/* Floating Add Button */}
       <QuickAddDialog />

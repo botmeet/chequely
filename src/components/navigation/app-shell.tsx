@@ -19,12 +19,23 @@ import { cn } from "@/lib/utils";
 import { useGlobalAccount } from "@/components/navigation/global-account-context";
 import { QuickAddDialog } from "@/components/forms/quick-add-dialog";
 import { createClient } from "@/lib/supabase/client";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const { selectedAccountId, setSelectedAccountId, accounts } = useGlobalAccount();
   const [showMoreMenu, setShowMoreMenu] = useState(false);
+  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
 
   // Check if current route is an auth route
   const isAuthPage =
@@ -36,10 +47,23 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     return <main className="min-h-screen bg-zinc-50 dark:bg-zinc-950">{children}</main>;
   }
 
-  const handleSignOut = async () => {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push("/login");
+  const handleSignOutClick = () => {
+    setShowLogoutDialog(true);
+  };
+
+  const executeSignOut = async () => {
+    setLoggingOut(true);
+    try {
+      const supabase = createClient();
+      await supabase.auth.signOut();
+      setShowLogoutDialog(false);
+      router.push("/login");
+      router.refresh();
+    } catch (err) {
+      console.error("Sign out error", err);
+    } finally {
+      setLoggingOut(false);
+    }
   };
 
   const navItems = [
@@ -138,8 +162,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </Link>
 
             <button
-              onClick={handleSignOut}
-              className="p-2 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/50"
+              onClick={handleSignOutClick}
+              className="p-2 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/50 cursor-pointer transition-colors"
               title="Sign out"
             >
               <LogOut className="h-4 w-4" />
@@ -234,9 +258,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <button
                 onClick={() => {
                   setShowMoreMenu(false);
-                  handleSignOut();
+                  handleSignOutClick();
                 }}
-                className="w-full flex items-center gap-3 p-3 rounded-xl text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 font-medium"
+                className="w-full flex items-center gap-3 p-3 rounded-xl text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 font-medium cursor-pointer"
               >
                 <LogOut className="h-5 w-5" />
                 Sign Out
@@ -245,6 +269,41 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       )}
+      {/* Sign Out Confirmation Dialog */}
+      <Dialog open={showLogoutDialog} onOpenChange={setShowLogoutDialog}>
+        <DialogContent className="max-w-sm p-6">
+          <DialogHeader className="items-center text-center sm:text-center">
+            <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-red-600 dark:bg-red-950/60 dark:text-red-400">
+              <LogOut className="h-6 w-6 stroke-[2.2]" />
+            </div>
+            <DialogTitle className="text-xl font-bold">Sign Out</DialogTitle>
+            <DialogDescription className="text-sm text-zinc-500 mt-1">
+              Are you sure you want to sign out of your Chequely account?
+            </DialogDescription>
+          </DialogHeader>
+
+          <DialogFooter className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 mt-4">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setShowLogoutDialog(false)}
+              disabled={loggingOut}
+              className="w-full sm:w-auto"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              variant="destructive"
+              onClick={executeSignOut}
+              disabled={loggingOut}
+              className="w-full sm:w-auto gap-1.5"
+            >
+              {loggingOut ? "Signing out..." : "Yes, Sign Out"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
